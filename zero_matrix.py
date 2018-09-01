@@ -2,7 +2,7 @@ import random
 
 # cannot do in place because this will make all elements zero eventually
 # so this does not work!
-def zero_matrx_bf(matrix):
+def zero_matrix_bf(matrix):
     width = len(matrix)
     height = len(matrix[0])
     for row in range(width):
@@ -15,7 +15,7 @@ def zero_matrx_bf(matrix):
                     print(row, y)
                     matrix[row][y] = 0
 
-def zero_matrx_set(matrix):
+def zero_matrix_set(matrix):
     width = len(matrix)
     height = len(matrix[0])
     rows = set()
@@ -39,10 +39,10 @@ def main():
     for row in matrix:
         print(row)
     print()
-    #zero_matrx_bf(matrix)
+    #zero_matrix_bf(matrix)
     #for row in matrix:
     #    print(row)
-    zero_matrx_set(matrix)
+    zero_matrix_set(matrix)
     for row in matrix:
         print(row)
 
