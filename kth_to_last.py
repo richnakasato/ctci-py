@@ -48,6 +48,38 @@ class SinglyLinkedList():
                 else:
                     curr = curr.next
 
+    def kth_to_last_bf(self, k):
+        memo = list()
+        if not self.head:
+            raise Exception('empty list!')
+        else:
+            curr = self.head
+            while curr:
+                memo.append(curr.data)
+                curr = curr.next
+            if 0 <= k < len(memo):
+                return memo[-(k+1)]
+            else:
+                return None
+
+    def kth_to_last_op(self, k):
+        if not self.head:
+            raise Exception('empty list!')
+        else:
+            curr = kth = self.head
+            count = 0
+            while curr.next:
+                curr = curr.next
+                if count == k:
+                    kth = kth.next
+                else:
+                    count += 1
+            if count == k:
+                return kth.data
+            else:
+                return None
+
+
 def main():
     lo = 0
     hi = 9
@@ -59,8 +91,10 @@ def main():
     for num in arr:
         sll.append(num)
     print(sll)
-    sll.remove(arr[1])
-    print(sll)
+
+    # assuming kth to last means 0th to last IS last element
+    print(sll.kth_to_last_bf(4))
+    print(sll.kth_to_last_op(4))
 
 if __name__ == "__main__":
     main()
