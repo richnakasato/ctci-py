@@ -13,10 +13,10 @@ class SinglyLinkedList():
         self.size = 0
 
     def __str__(self):
-        out_string = 'head({}) -> '.format(self.size)
+        out_string = 'head(sz:{})-> '.format(self.size)
         curr = self.head
         while curr:
-            out_string += str(curr.data) + ' -> '
+            out_string += str(curr.data) + '-> '
             curr = curr.next
         out_string += 'NULL'
         return out_string
@@ -43,8 +43,8 @@ class SinglyLinkedList():
             while curr:
                 if curr.data == data:
                     self.size -= 1
-                    prev.next = curr.next
-                    return
+                    prev.next = curr.next   # delete happens here
+                    curr = curr.next        # this line is key!
                 else:
                     prev = curr
                     curr = curr.next
@@ -66,25 +66,49 @@ class SinglyLinkedList():
                 curr.next = self._remove_recurse(curr.next, data)
                 return curr
 
-def remove_dups(list_):
-    pass
+    def remove_dups(self):
+        if not self.head:
+            raise Exception('empty list!')
+        elif not self.head.next:
+            return
+        else:
+            memo = set()
+            prev = None
+            curr = self.head
+            while curr:
+                if curr.data in memo:
+                    self.size -= 1
+                    prev.next = curr.next
+                else:
+                    memo.add(curr.data)
+                    prev = curr
+                curr = prev.next
+
+    def remove_dups_no_memo(self):
+        if not self.head:
+            raise Exception('empty list!')
+        elif not self.head.next:
+            return
+        else:
+            pass
+        pass
 
 
 def main():
     #arr = random.sample(range(10), 10)
     arr = [random.randint(0, 9) for x in range(10)]
     print(arr)
+    print(len(set(arr)))
 
     sll = SinglyLinkedList()
     for num in arr:
         sll.append(num)
     print(sll)
 
-    sll.remove_iter(arr[9])
+    sll.remove_iter(arr[1])
     #sll.remove_recurse(arr[4])
+    #sll.remove_dups()
     print(sll)
-
-    pass
 
 if __name__ == "__main__":
     main()
