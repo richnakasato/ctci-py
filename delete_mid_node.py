@@ -52,42 +52,68 @@ class SinglyLinkedList():
                     curr = curr.next
 
     def delete_middle_node_bf(self):
-        pass
+        if not self.head or not self.head.next:
+            raise Exception('no middle node!')
+        else:
+            curr = self.head
+            curr_count = 0
+            while curr.next:
+                curr = curr.next
+                curr_count += 1
+            mid_count = curr_count//2
+            if mid_count == 0:
+                self.head = self.head.next
+                return
+            else:
+                curr = self.head
+                curr_count = 0
+                while curr.next:
+                    if curr_count + 1 == mid_count: # have to delete BEFORE!
+                        curr.next = curr.next.next
+                        self.size -= 1
+                        return
+                    curr = curr.next
+                    curr_count += 1
 
     def delete_middle_node_op(self):
         if not self.head or not self.head.next:
             raise Exception('no middle node!')
         else:
             curr = self.head.next
-            curr_count = 1
+            curr_count = 0
             mid = self.head
             mid_count = 0
             while curr.next:
                 curr = curr.next
                 curr_count += 1
-                if curr_count // 2 > mid_count:
+                if mid_count + 1 < curr_count // 2:
                     mid = mid.next
                     mid_count += 1
-            if mid_count > 0:
-                mid.next = mid.next.next
-            else:
-                self.head = self.head.next.next
+            mid.next = mid.next.next
             self.size -= 1
 
 def main():
-    n = 10
+    n = 11
     lo = 0
     hi = 9
     test_data = [random.randint(lo, hi) for x in range(n)]
     print(test_data)
 
-    sll = SinglyLinkedList()
+    sllbf = SinglyLinkedList()
+    sllop = SinglyLinkedList()
     for item in test_data:
-        sll.append(item)
-    print(sll)
+        sllbf.append(item)
+        sllop.append(item)
+    print(sllbf)
+    print(sllop)
 
-    sll.delete(test_data[1])
-    print(sll)
+    #sll.delete(test_data[1])
+    #print(sll)
+
+    sllbf.delete_middle_node_bf()
+    sllop.delete_middle_node_bf()
+    print(sllbf)
+    print(sllop)
 
 if __name__ == "__main__":
     main()
