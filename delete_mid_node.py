@@ -51,6 +51,14 @@ class SinglyLinkedList():
                 else:
                     curr = curr.next
 
+    def get(self, data):
+        curr = self.head
+        while curr:
+            if curr.data == data:
+                return curr
+            curr = curr.next
+        return None
+
     def delete_middle_node_bf(self):
         if not self.head or not self.head.next:
             raise Exception('no middle node!')
@@ -92,6 +100,14 @@ class SinglyLinkedList():
             mid.next = mid.next.next
             self.size -= 1
 
+    def delete_middle_node_actual(self, node):
+        # TODO: error handling
+        if node and node.next:
+            self.size -= 1
+            node.data = node.next.data
+            node.next = node.next.next
+
+
 def main():
     n = 11
     lo = 0
@@ -107,13 +123,21 @@ def main():
     print(sllbf)
     print(sllop)
 
+    delete = sllbf.get(test_data[5])
+    sllbf.delete_middle_node_actual(delete)
+    print(sllbf)
+
     #sll.delete(test_data[1])
     #print(sll)
 
-    sllbf.delete_middle_node_bf()
-    sllop.delete_middle_node_bf()
-    print(sllbf)
-    print(sllop)
+    #sllbf.delete_middle_node_bf()
+    #sllop.delete_middle_node_bf()
+    #print(sllbf)
+    #print(sllop)
+
+    #get_node = sllbf.get(test_data[n//2-1])
+    #print(get_node.data)
+    #print(get_node.next.data)
 
 if __name__ == "__main__":
     main()
