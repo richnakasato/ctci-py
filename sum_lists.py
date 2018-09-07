@@ -60,7 +60,7 @@ class LLNode():
         self.next = next_
 
 
-def sum_lists(left_list, right_list):
+def sum_lists_reverse(left_list, right_list):
     left = left_list.head if left_list else None
     right = right_list.head if right_list else None
     curr = dummy = LLNode(-999)
@@ -71,25 +71,58 @@ def sum_lists(left_list, right_list):
         curr.next = LLNode(sum_%10)
         curr, left, right = curr.next, left.next, right.next
     while left:
-        curr.next = LLNode(left.data)
+        sum_ = left.data + carry
+        carry = sum_//10
+        curr.next = LLNode(sum_%10)
         curr, left = curr.next, left.next
     while right:
-        curr.next = LLNode(right.data)
+        sum_ = right.data + carry
+        carry = sum_//10
+        curr.next = LLNode(sum_%10)
         curr, right = curr.next, right.next
+    if carry:
+        curr.next = LLNode(carry)
     return dummy.next
+
+def sum_lists_forward(left_list, right_list):
+    left = left_list.head if left_list else None
+    right = right_list.head if right_list else None
+    left = left_list.head
+    right = right_list.head
+    s_stack = list()
+    while left and right:
+        s_stack.append(left.data + right.data)
+        left = left.next
+        right = right.next
+    while left:
+        s_stack.append(left.data)
+        left = left.next
+    while right:
+        s_stack.append(right.data)
+        right = right.next
+    carry = 0
+    curr = dummy = LLNode(-999)
+    while len(s_stack):
+        val = s_stack.pop() + carry
+        curr.next = LLNode(val % 10, curr.next)
+        carry = val // 10
+    if carry:
+        curr.next = LLNode(carry, curr.next)
+    return dummy.next
+
 
 def main():
     left = SinglyLinkedList()
-    left.append(7)
-    left.append(1)
     left.append(6)
+    left.append(1)
+    left.append(7)
     right = SinglyLinkedList()
-    right.append(5)
-    right.append(9)
     right.append(2)
+    right.append(9)
+    right.append(5)
     print(left)
     print(right)
-    sum_ = sum_lists(left, right)
+    sum_ = sum_lists_forward(left, right)
     curr = sum_
     outstring = ''
     while curr:
