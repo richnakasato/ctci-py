@@ -61,9 +61,8 @@ class LLNode():
 
 
 def sum_lists(left_list, right_list):
-    # TODO: error handling
-    left = left_list.head
-    right = right_list.head
+    left = left_list.head if left_list else None
+    right = right_list.head if right_list else None
     curr = dummy = LLNode(-999)
     carry = 0
     while left and right:
