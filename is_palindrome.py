@@ -13,7 +13,6 @@ class SingleLinkedList():
 
     def __init__(self):
         self._dummy = self.Node(-999)
-        self.head = self._dummy.next
         self.size = 0
 
     def __str__(self):
@@ -85,7 +84,6 @@ def main():
     print(palindrome)
     print(palindrome.is_palindrome())
     print(sll.is_palindrome())
-
 
     #sll.delete(arr[0])
     #print(sll)
