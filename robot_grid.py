@@ -1,34 +1,38 @@
 def can_move(grid, pos):
-    if not pos:
-        return False
-    x, y = pos
-    if 0 <= x < len(grid) and 0 <= y < len(grid[0]):
+    r, c = pos
+    if 0 <= r < len(grid) \
+      and 0 <= c < len(grid[0]) \
+      and grid[r][c]:
         return True
-    return False
+    else:
+        return False
 
-def robot_grid(grid, cur, end, path):
-    if not cur or not can_move(grid, cur):
+def robot_grid(grid, curr, end, curr_path, paths):
+    r, c = curr
+    new_path = curr_path + [curr]
+    if curr == end:
+        paths.append(new_path)
         return None
-    path.append(cur)
-    if cur == end:
-        return path
-    x, y = cur
-    d_path = robot_grid(grid, (x+1, y), end, path)
-    r_path = robot_grid(grid, (x, y+1), end, path)
-    if d_path:
-        return d_path
-    if r_path:
-        return r_path
+    else:
+        right = (r,c+1)
+        if can_move(grid, right):
+            robot_grid(grid, right, end, new_path, paths)
+        down = (r+1,c)
+        if can_move(grid, down):
+            robot_grid(grid, down, end, new_path, paths)
+        return None
 
 
 def main():
-    grid = [[0, 0, 0],
-            [0, 0, 0],
-            [0, 0, 0]]
+    grid = [[1, 1, 1],
+            [1, 1, 1],
+            [1, 1, 1]]
     start = (0, 0)
     end = (2, 2)
-    path = list()
-    print(robot_grid(grid, start, end, path))
+    curr_path = list()
+    paths = list()
+    robot_grid(grid, start, end, curr_path, paths)
+    print(paths)
 
 if __name__ == "__main__":
     main()
