@@ -30,23 +30,13 @@ def rotate_matrix_inplace(matrix):
 
 
 def main():
-    n = 2
-    matrix = [[None for x in range(n)] for y in range (n)]
-    for x in range(n):
-        for y in range(n):
-            matrix[x][y] = (x, y)
-    for row in matrix:
-        print(row)
-    print()
-
-    rotated = rotate_matrix(matrix)
-    for row in rotated:
-        print(row)
-    print()
-
-    rotate_matrix_inplace(matrix)
-    for row in matrix:
-        print(row)
+    m = [['A', 'B', 'C'],
+         ['D', 'E', 'F'],
+         ['G', 'H', 'I']]
+    assert rotate_matrix(m)==rotate_matrix_inplace(m)
+    m = [['A', 'B'],
+         ['C', 'D']]
+    assert rotate_matrix(m)==rotate_matrix_inplace(m)
 
 if __name__ == "__main__":
     main()
